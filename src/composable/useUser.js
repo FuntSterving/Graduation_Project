@@ -1,36 +1,32 @@
-// import { collection,  addDoc } from 'firebase/firestore'
-// import { db, } from '@/firebase'
-// // import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
-// import { ref, computed } from 'vue'
-// import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+/* eslint-disable no-unused-vars */
+import { collection, getDocs, addDoc,} from 'firebase/firestore'
 import { db, storage } from '@/firebase'
-// import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { ref, computed } from 'vue'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
-export const useUser = () => {
-  const user = ref()
-  const userList = ref([])
+const user = ref()
+const userList = ref([])
 
-  const loading = ref({
-    user: false
-  })
+const loading = ref({
+  user: false,
+  userList: false
+})
 
-  const auth = getAuth()
-
-  const userRemake = computed(() => {
-    if (user.value) {
-      return {
-        displayName: user.value.displayName,
-        email: user.value.email,
-        photoURL: user.value.photoURL,
-        uid: user.value.uid
-      }
+const userRemake = computed(() => {
+  if (user.value) {
+    return {
+      displayName: user.value.displayName,
+      email: user.value.email,
+      photoURL: user.value.photoURL,
+      uid: user.value.uid
     }
-    return null
-  })
+  }
+  return null
+})
+
+export const useUser = () => {
+  const auth = getAuth()
 
   function googleRegister() {
     const provider = new GoogleAuthProvider()
@@ -52,9 +48,8 @@ export const useUser = () => {
         await getAllUsers()
         if (!checkUserInDatabase()) {
           await addDoc(collection(db, 'users'), userRemake.value)
-        }
-        else{
-            console.log('User already in database')
+        } else {
+          console.error('User already in database')
         }
       }
       loading.value.user = false
@@ -81,14 +76,17 @@ export const useUser = () => {
   }
 
   function googleLogout() {
-    localStorage.removeItem('user')
-    location.reload()
+    auth.signOut()
+    user.value = null
   }
 
   return {
     user,
     loading,
     googleRegister,
-    googleLogout
+    googleLogout,
+    getAllUsers,
+    userRemake,
+    userList
   }
 }
