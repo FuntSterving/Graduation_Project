@@ -7,6 +7,8 @@ import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { ref, computed } from 'vue'
 // eslint-disable-next-line no-unused-vars
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+// eslint-disable-next-line no-unused-vars
+import { createId, formatDate } from '@/services/method'
 
 import { useUser } from './useUser'
 
@@ -17,10 +19,35 @@ export const useContent = () => {
     author: ''
   })
 
+  // eslint-disable-next-line no-unused-vars
+  const newRestaurants = ref({
+    id: createId(),
+    brand: '',
+    location: '',
+    typeOfCuisine: '',
+    workingHours: '',
+    description: '',
+    map: '',
+    image: null
+  })
+
   const loading = ref({
     content: false,
     contentList: false,
     newContent: false
+  })
+
+  const contentListRemake = computed(() => {
+    const _contentListRemake = contentList.value.map((content) => {
+      content.brand = `${(content.brand)} `
+      content.location = `${content.location} `
+      // content.travel = `${content.travel} км`
+      // content.year = formatDate(content.year)
+      // content.age = `${new Date().getFullYear() - content.year}г`
+      // content.color = `#${content.color}`
+      return content
+    })
+    return _contentListRemake || []
   })
 
   async function getAllContent() {
@@ -38,9 +65,7 @@ export const useContent = () => {
     loading.value.content = true
     try {
       const querySnapshot = await getDocs(collection(db, 'contents'))
-      content.value = querySnapshot.docs
-        .map((doc) => doc.data())
-        .find((item) => item.id === id)
+      content.value = querySnapshot.docs.map((doc) => doc.data()).find((item) => item.id === id)
       loading.value.content = false
     } catch (error) {
       console.error(error)
@@ -79,6 +104,8 @@ export const useContent = () => {
     getAllContent,
     getContentById,
     addContent,
-    deleteContent
+    deleteContent,
+    contentListRemake,
+    newRestaurants
   }
 }

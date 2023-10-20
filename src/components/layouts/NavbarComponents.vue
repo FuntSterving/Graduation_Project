@@ -54,7 +54,7 @@ const items = ref([
                     <span v-bind="props.label">{{ label }}</span>
                 </a>
             </router-link>
-        
+
         </template>
         <template #end>
 
@@ -72,29 +72,53 @@ const items = ref([
     padding: 10px;
     margin: 10px;
 }
-.navbarTopImgContainer {
-    background-color:  #522f45;
-    
 
+.navbarTopImgContainer {
+    background-color: #522f45;
     display: flex;
-    align-items: center; /* Выравнивание по вертикали по центру */
-    justify-content: center; /* Выравнивание по горизонтали по центру */
-    height: 150px; /* Высота контейнера */
+    align-items: center;
+    justify-content: center;
+    height: 150px;
 }
+
 .navbarTopImg {
     background-image: url('@/assets/RestaurantGallery_FullLogo.png');
     background-size: cover;
-    background-position: center; /* Изображение будет в центре контейнера */
+    background-position: center;
     height: 150px;
     width: 150px;
-    /* Другие стили по вашему усмотрению */
+    animation: rotateAndScale 4s both;
+
+
 }
 
-.p-button{
+
+@keyframes rotateAndScale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2) rotateY(180deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/*.navbarTopImg:hover {
+    animation: rotateAndScale 4s both;
+} */
+
+.p-button {
     background: #49243b;
 }
-.p-button:hover{
-    background-color: #24111d;;
+
+.p-button:hover {
+    background-color: #24111d;
+    ;
     color: #eb7fc5;
 }
 </style>
