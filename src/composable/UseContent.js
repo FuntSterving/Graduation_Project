@@ -1,35 +1,127 @@
-import { getDocs, addDoc, doc, collection, deleteDoc } from 'firebase/firestore'
-// eslint-disable-next-line no-unused-vars
-import { db, storage } from '@/firebase'
-// eslint-disable-next-line no-unused-vars
-import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
-// eslint-disable-next-line no-unused-vars
-import { ref, computed } from 'vue'
-// eslint-disable-next-line no-unused-vars
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-// eslint-disable-next-line no-unused-vars
-import { createId, formatDate } from '@/services/method'
+/* eslint-disable no-unused-vars */
+// import { getDocs, addDoc, doc, collection, deleteDoc } from 'firebase/firestore'
+// // eslint-disable-next-line no-unused-vars
+// import { db, storage } from '@/firebase'
+// // eslint-disable-next-line no-unused-vars
+// import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
+// // eslint-disable-next-line no-unused-vars
+// import { ref, computed } from 'vue'
+// // eslint-disable-next-line no-unused-vars
+// import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+// // eslint-disable-next-line no-unused-vars
+// import { createId, formatDate } from '@/services/method'
 
+// import { useUser } from './useUser'
+
+// export const useContent = () => {
+//   const content = ref()
+//   const contentList = ref([])
+//   const newContent = ref({
+//     author: ''
+//   })
+
+//   // eslint-disable-next-line no-unused-vars
+//   const newRestaurants = ref({
+//     id: createId(),
+//     brand: '',
+//     location: '',
+//     typeOfCuisine: '',
+//     workingHours: '',
+//     description: '',
+//     map: '',
+//     image: null
+//   })
+
+//   const loading = ref({
+//     content: false,
+//     contentList: false,
+//     newContent: false
+//   })
+
+//   async function getAllContent() {
+//     loading.value.contentList = true
+//     try {
+//       const querySnapshot = await getDocs(collection(db, 'contents'))
+//       contentList.value = querySnapshot.docs.map((doc) => doc.data())
+//       loading.value.contentList = false
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+
+//   async function getContentById(id) {
+//     loading.value.content = true
+//     try {
+//       const querySnapshot = await getDocs(collection(db, 'contents'))
+//       content.value = querySnapshot.docs.map((doc) => doc.data()).find((item) => item.id === id)
+//       loading.value.content = false
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+
+//   async function addContent() {
+//     const { userRemake } = useUser()
+//     loading.value.newContent = true
+//     try {
+//       if (newContent.value && userRemake.value) {
+//         newContent.value.author = userRemake.value
+//         await addDoc(collection(db, 'contents'), newContent.value)
+//         loading.value.newContent = false
+//       }
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+
+//   async function deleteContent(id) {
+//     try {
+//       if (content.value) {
+//         await deleteDoc(doc(db, 'contents', id))
+//       }
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+
+//   return {
+//     content,
+//     contentList,
+//     loading,
+//     newContent,
+//     getAllContent,
+//     getContentById,
+//     addContent,
+//     deleteContent,
+//     newRestaurants
+//   }
+// }
+
+import { getDocs, addDoc, doc, collection, deleteDoc } from 'firebase/firestore'
+import { db, storage } from '@/firebase'
+import { ref, computed } from 'vue'
+import { createId, formatDate } from '@/services/method'
+import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useUser } from './useUser'
 
 export const useContent = () => {
-  const content = ref()
-  const contentList = ref([])
   const newContent = ref({
-    author: ''
-  })
-
-  // eslint-disable-next-line no-unused-vars
-  const newRestaurants = ref({
     id: createId(),
+    author: '',
     brand: '',
     location: '',
     typeOfCuisine: '',
     workingHours: '',
     description: '',
     map: '',
+    numberOfSeats: 0,
+    childrensMenu: '',
+    delivery: '',
     image: null
   })
+
+  const contentList = ref([])
+  const content = ref(null)
 
   const loading = ref({
     content: false,
@@ -37,18 +129,20 @@ export const useContent = () => {
     newContent: false
   })
 
-  const contentListRemake = computed(() => {
-    const _contentListRemake = contentList.value.map((content) => {
-      content.brand = `${(content.brand)} `
-      content.location = `${content.location} `
-      // content.travel = `${content.travel} км`
-      // content.year = formatDate(content.year)
-      // content.age = `${new Date().getFullYear() - content.year}г`
-      // content.color = `#${content.color}`
-      return content
-    })
-    return _contentListRemake || []
-  })
+  const { userRemake } = useUser()
+
+  async function addContent() {
+    loading.value.newContent = true
+    try {
+      if (newContent.value && userRemake.value) {
+        newContent.value.author = userRemake.value
+        await addDoc(collection(db, 'contents'), newContent.value)
+        loading.value.newContent = false
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   async function getAllContent() {
     loading.value.contentList = true
@@ -72,20 +166,6 @@ export const useContent = () => {
     }
   }
 
-  async function addContent() {
-    const { userRemake } = useUser()
-    loading.value.newContent = true
-    try {
-      if (newContent.value && userRemake.value) {
-        newContent.value.author = userRemake.value
-        await addDoc(collection(db, 'contents'), newContent.value)
-        loading.value.newContent = false
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async function deleteContent(id) {
     try {
       if (content.value) {
@@ -96,16 +176,55 @@ export const useContent = () => {
     }
   }
 
+  async function uploadImage(file) {
+    const storage = getStorage()
+    const storageRef = ref(storage, 'contents/' + file.name)
+
+    uploadBytes(storageRef, file)
+      .then(() => {
+        console.log('Файл успешно загружен!')
+
+        getDownloadURL(storageRef)
+          .then((downloadURL) => {
+            newContent.value.image = downloadURL
+          })
+          .catch((error) => {
+            console.error('Ошибка получения ссылки на загруженный файл:', error)
+          })
+      })
+      .catch((error) => {
+        console.error('Ошибка загрузки файла:', error)
+      })
+  }
+
+  function clear() {
+    newContent.value = {
+      author: '',
+      brand: '',
+      location: '',
+      typeOfCuisine: '',
+      workingHours: '',
+      description: '',
+      map: '',
+      numberOfSeats: 0,
+      childrensMenu: '',
+      delivery: '',
+      image: null
+    }
+    contentList.value = []
+    content.value = null
+  }
+
   return {
-    content,
-    contentList,
-    loading,
     newContent,
+    contentList,
+    content,
+    loading,
     getAllContent,
     getContentById,
     addContent,
     deleteContent,
-    contentListRemake,
-    newRestaurants
+    uploadImage,
+    clear
   }
 }
