@@ -5,3 +5,5 @@
 <template>
 Работатет
 </template>
+<style scoped>
+</style>

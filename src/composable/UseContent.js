@@ -103,6 +103,7 @@ import { ref, computed } from 'vue'
 import { createId, formatDate } from '@/services/method'
 import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useUser } from './useUser'
+import * as firebase from 'firebase/storage'
 
 export const useContent = () => {
   const newContent = ref({
@@ -113,7 +114,6 @@ export const useContent = () => {
     typeOfCuisine: '',
     workingHours: '',
     description: '',
-    map: '',
     numberOfSeats: 0,
     childrensMenu: '',
     delivery: '',
@@ -129,14 +129,34 @@ export const useContent = () => {
     newContent: false
   })
 
-  const { userRemake } = useUser()
+  const contentListRemake = computed(() => {
+    if (contentList.value) {
+      const _contentListRemake = contentList.value.map((content) => {
+        content.brand = `${content.brand} `
+        content.location = `${content.location}`
+        content.typeOfCuisine = `${content.typeOfCuisine}`
+        content.workingHours = `${content.workingHours}`
+        content.description = `${content.description}`
+        content.numberOfSeats = `${content.numberOfSeats}`
+        content.childrensMenu = `${content.childrensMenu}`
+        content.delivery = `${content.delivery}`
+        return content
+      })
+      return _contentListRemake || []
+    }
+    return []
+  })
+
+  const { userToObject } = useUser()
 
   async function addContent() {
     loading.value.newContent = true
     try {
-      if (newContent.value && userRemake.value) {
-        newContent.value.author = userRemake.value
-        await addDoc(collection(db, 'contents'), newContent.value)
+      if (newContent.value && userToObject.value) {
+        newContent.value.author = userToObject.value
+        await addDoc(collection(db, 'contents'), newContent.value).finally(async () => {
+          await getAllContent()
+        })
         loading.value.newContent = false
       }
     } catch (error) {
@@ -149,6 +169,7 @@ export const useContent = () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'contents'))
       contentList.value = querySnapshot.docs.map((doc) => doc.data())
+      console.log(contentList.value)
       loading.value.contentList = false
     } catch (error) {
       console.error(error)
@@ -178,13 +199,13 @@ export const useContent = () => {
 
   async function uploadImage(file) {
     const storage = getStorage()
-    const storageRef = ref(storage, 'contents/' + file.name)
+    const storageRef = firebase.ref(storage, 'contents/' + file.name)
 
     uploadBytes(storageRef, file)
       .then(() => {
         console.log('Файл успешно загружен!')
 
-        getDownloadURL(storageRef)
+        firebase.getDownloadURL(storageRef)
           .then((downloadURL) => {
             newContent.value.image = downloadURL
           })
@@ -205,7 +226,6 @@ export const useContent = () => {
       typeOfCuisine: '',
       workingHours: '',
       description: '',
-      map: '',
       numberOfSeats: 0,
       childrensMenu: '',
       delivery: '',
@@ -220,6 +240,7 @@ export const useContent = () => {
     contentList,
     content,
     loading,
+    contentListRemake,
     getAllContent,
     getContentById,
     addContent,

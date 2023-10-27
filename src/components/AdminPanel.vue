@@ -149,7 +149,7 @@ const workingHours = [
         </template>
         <template #footer>
             <Button label="Сбросить" icon="pi pi-times" @click="clearContent" text />
-            <Button label="Добавить" icon="pi pi-check" @click="createContetn" autofocus />
+            <Button label="Добавить" icon="pi pi-check" :disabled="!newContent.image" @click="createContetn" autofocus />
         </template>
 
 
