@@ -1,9 +1,10 @@
+// eslint-disable-next-line no-unused-vars
 import { collection, getDocs, addDoc, getDoc, doc, setDoc } from 'firebase/firestore'
 // eslint-disable-next-line no-unused-vars
 import { db, storage } from '@/firebase'
 // eslint-disable-next-line no-unused-vars
 import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 const user = ref()
@@ -97,24 +98,24 @@ export const useUser = () => {
   }
 
   // обновить данные в базе данных
-  async function updateUserInDatabase() {
-    if (user.value) {
-      try {
-        const userDocRef = doc(db, 'users', user.value.uid)
-        const existingUserDoc = await getDoc(userDocRef)
-        if (existingUserDoc.exists()) {
-          const userData = existingUserDoc.data()
-          const updatedData = {
-            ...userData,
-            ...user.value
-          }
-          await setDoc(userDocRef, updatedData)
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
+//   async function updateUserInDatabase() {
+//     if (user.value) {
+//       try {
+//         const userDocRef = doc(db, 'users', user.value.uid)
+//         const existingUserDoc = await getDoc(userDocRef)
+//         if (existingUserDoc.exists()) {
+//           const userData = existingUserDoc.data()
+//           const updatedData = {
+//             ...userData,
+//             ...user.value
+//           }
+//           await setDoc(userDocRef, updatedData)
+//         }
+//       } catch (error) {
+//         console.error(error)
+//       }
+//     }
+//   }
 
   function addToLocalStorage() {
     if (user.value) {
@@ -144,11 +145,11 @@ export const useUser = () => {
 
   // это надо не всем
   // для постоянной связи сервиса с базой данных
-  watch(user.value, async (newValue) => {
-    if (newValue) {
-      await updateUserInDatabase()
-    }
-  })
+//   watch(user.value, async (newValue) => {
+//     if (newValue) {
+//       await updateUserInDatabase()
+//     }
+//   })
 
   return {
     user,

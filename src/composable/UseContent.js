@@ -169,7 +169,7 @@ export const useContent = () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'contents'))
       contentList.value = querySnapshot.docs.map((doc) => doc.data())
-      console.log(contentList.value)
+      // console.log(contentList.value)
       loading.value.contentList = false
     } catch (error) {
       console.error(error)
@@ -205,7 +205,8 @@ export const useContent = () => {
       .then(() => {
         console.log('Файл успешно загружен!')
 
-        firebase.getDownloadURL(storageRef)
+        firebase
+          .getDownloadURL(storageRef)
           .then((downloadURL) => {
             newContent.value.image = downloadURL
           })

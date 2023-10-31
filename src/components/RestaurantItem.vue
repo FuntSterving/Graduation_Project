@@ -2,8 +2,6 @@
 import { defineProps } from 'vue';
 import Card from 'primevue/card';
 
-
-
 defineProps({
   content: {
     type: Object,
@@ -16,7 +14,7 @@ defineProps({
 
 
 <template>
-  <Card style="width: 20em;" class="card">
+  <Card style="width: 20em; margin-top: 3em;" class="card">
     <template #header>
       <div class="car-image">
         <img :src="content.image" alt="" class="car-image-inner">
@@ -31,9 +29,9 @@ defineProps({
     <template #content>
       <div class="car-details">
         <p>Расположение: {{ content.location }}</p>
-        <p>Тип кухни: {{ content.typeOfCuisine }}</p>
+        <!-- <p>Тип кухни: {{ content.typeOfCuisine }}</p>
         <p>Время работы: {{ content.workingHours }}</p>
-        <p>Количество посадочных мест: {{ content.numberOfSeats }}</p>
+        <p>Количество посадочных мест: {{ content.numberOfSeats }}</p> -->
       </div>
     </template>
     <template #footer>
@@ -43,14 +41,18 @@ defineProps({
 
 <style scoped>
 .card {
-  border-radius: 3px;
-  border: 1px solid #dee2e6;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
   width: 30%;
   margin-bottom: 10px;
   padding: 10px;
   box-sizing: border-box;
   position: relative;
+}
+
+.car-details {
+  padding-top: 10px;
+  text-align: left;
+
 }
 
 .car-image {
@@ -70,9 +72,5 @@ defineProps({
   word-break: break-all;
 }
 
-.car-details {
-  padding-top: 10px;
-  text-align: justify;
 
-}
 </style>

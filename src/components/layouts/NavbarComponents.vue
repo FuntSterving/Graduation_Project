@@ -4,6 +4,14 @@ import { useUser } from '@/composable/useUser'
 import { ref } from "vue";
 import Menubar from 'primevue/menubar';
 
+import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+
+// eslint-disable-next-line no-unused-vars
+const route = useRoute();
+// eslint-disable-next-line no-unused-vars
+const router = useRouter();
+
 import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 import Dropdown from 'primevue/dropdown';
@@ -71,26 +79,27 @@ const workingHours = [
 
 const items = ref([
     {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
+        label: 'Главная',
+        icon: 'pi pi-fw pi-home',
+        route: '/home',
 
     },
     {
-        label: 'Войти',
-        icon: 'pi pi-fw pi-user',
-    },
-    {
-        label: 'Events',
+        label: 'События',
         icon: 'pi pi-fw pi-calendar',
+        route: '/events',
 
     },
+
     {
-        label: 'Upload',
-        icon: 'pi pi-fw pi-upload',
+        label: 'Contacts',
+        icon: 'pi pi-megaphone',
+        route: '/contacts',
     },
     {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off'
+        label: 'Избранное',
+        icon: 'pi pi-heart',
+        route: '/cart',
     }
 ]);
 
@@ -107,17 +116,16 @@ const items = ref([
     </div>
     <Menubar :model="items">
         <template #start>
-            <!-- <img alt="logo" src="@/assets/RestaurantGallery_logo_.png" height="50" class="mr-2" /> -->
+            <img alt="logo" src="@/assets/RestaurantGallery_logo_.png" height="50" class="mr-2" />
         </template>
-        <template #content="{ label, item, props, }">
+        <template #item="{ label, item, props }">
             <router-link v-if="item.route" v-slot="routerProps" :to="item.route" custom>
-                <a :href="routerProps.href" v-bind="props.action">
-                    <span v-bind="props.icon" />
-                    <span v-bind="props.label">{{ label }}</span>
-                </a>
+              <a :href="routerProps.href" v-bind="props.action" @click="($event) => routerProps.navigate($event)">
+                <span v-bind="props.icon" />
+                <span v-bind="props.label">{{ label }}</span>
+              </a>
             </router-link>
-
-        </template>
+          </template>
         <template #end>
 
             <Button v-if="user?.status === 'admin'" icon="pi pi-plus" @click="toggleVisible" />
@@ -204,7 +212,8 @@ const items = ref([
 
                         <div class="p-field">
                             <label for="photo">Фото</label>
-                            <FileUpload mode="basic" style="background: #522f45" id="photo" accept="image/*" @input="onUpload($event)" />
+                            <FileUpload mode="basic" style="background: #522f45" id="photo" accept="image/*"
+                                @input="onUpload($event)" />
                         </div>
 
                     </div>

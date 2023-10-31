@@ -57,7 +57,7 @@ const workingHours = [
     { hours: '12:00-02:00' },
     { hours: '12:00-03:00' },
     { hours: '24/7' },
-  
+
 ]
 </script>
 <template>
