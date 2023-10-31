@@ -45,7 +45,7 @@ function goToRestaurantUrl(id) {
   
   :deep(.p-card):hover {
     cursor: pointer;
-    transform: scale(1.1) !important;
+    transform: scale(1.03) !important;
   }
   
 </style>

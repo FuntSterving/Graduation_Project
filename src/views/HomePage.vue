@@ -1,9 +1,8 @@
 <script setup>
-
+import StartPage from '@/components/StartPage.vue';
 </script>
 
 <template>
-Работатет
+    <StartPage />
 </template>
-<style scoped>
-</style>
+<style scoped></style>

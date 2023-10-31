@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="">
         <section style="height:80px;"></section>
 
         <!----------- Footer ------------>

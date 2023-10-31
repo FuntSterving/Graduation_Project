@@ -23,8 +23,6 @@ import InputText from "primevue/inputtext";
 
 const { user, googleRegister, googleLogout, } = useUser()
 
-
-
 // import { ref, computed } from "vue";
 
 
@@ -85,6 +83,12 @@ const items = ref([
 
     },
     {
+        label: 'Галерея',
+        icon: 'pi pi-map',
+        route: '/restaurants',
+
+    },
+    {
         label: 'События',
         icon: 'pi pi-fw pi-calendar',
         route: '/events',
@@ -103,6 +107,17 @@ const items = ref([
     }
 ]);
 
+function setCursorPointer() {
+    document.body.style.cursor = 'pointer';
+}
+
+function resetCursor() {
+    document.body.style.cursor = 'default';
+}
+
+function navigateToHome() {
+    router.push({ path: '/home' });
+}
 
 </script>
 
@@ -110,25 +125,28 @@ const items = ref([
 
 <template>
     <div class="navbarTopImgContainer">
-
         <div class="navbarTopImg">
         </div>
     </div>
     <Menubar :model="items">
         <template #start>
-            <img alt="logo" src="@/assets/RestaurantGallery_logo_.png" height="50" class="mr-2" />
+            <router-link :to="'/home'" custom>
+                <img alt="logo" src="@/assets/RestaurantGallery_logo_.png" height="50" class="mr-2"
+                    @mouseover="setCursorPointer" @mouseleave="resetCursor" @click="navigateToHome" />
+            </router-link>
         </template>
         <template #item="{ label, item, props }">
             <router-link v-if="item.route" v-slot="routerProps" :to="item.route" custom>
-              <a :href="routerProps.href" v-bind="props.action" @click="($event) => routerProps.navigate($event)">
-                <span v-bind="props.icon" />
-                <span v-bind="props.label">{{ label }}</span>
-              </a>
+                <a :href="routerProps.href" v-bind="props.action" @click="($event) => routerProps.navigate($event)">
+                    <span v-bind="props.icon" />
+                    <span v-bind="props.label">{{ label }}</span>
+                </a>
             </router-link>
-          </template>
+        </template>
         <template #end>
 
-            <Button v-if="user?.status === 'admin'" icon="pi pi-plus" @click="toggleVisible" />
+            <Button v-if="user?.status === 'admin'" icon="pi pi-plus" label="Admin panel" @click="toggleVisible"
+                class="adminBtn" />
             <Dialog v-model:visible="visible" maximizable modal header="Добавить новое заведение"
                 :style="{ width: '50vw' }">
                 <template #default>
@@ -254,8 +272,6 @@ const items = ref([
     height: 150px;
     width: 150px;
     animation: rotateAndScale 4s both;
-
-
 }
 
 
@@ -274,19 +290,58 @@ const items = ref([
 }
 
 
+.p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-content .p-menuitem-link .p-menuitem-text {
+    color: rgba(255, 255, 255, 1.00);
+    text-decoration: none !important;
+}
+:deep(.p-card) {
+    cursor: pointer;
+    transform: scale(1.03) !important;
+  }
+
+.p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-content .p-menuitem-link .p-menuitem-text:hover {
+    color: #eb7fc5;
+}
+
+.p-menubar {
+    background-color: #3c3d41;
+    border-top: solid 1px rgba(255, 255, 255, 0.10);
+}
+
+.pi {
+    color: rgba(255, 255, 255, 1.00);
+}
+
+.pi-fw {
+    color: rgba(255, 255, 255, 1.00);
+}
+
+
+.p-menubar .p-menuitem-link:hover {
+    background-color: #24111d;
+    border-radius: 10px;
+}
+
+.p-menuitem-link {
+    border: 1px solid #883cae;
+    border-radius: 4px;
+    margin: 0px 10px 0px 10px;
+}
+
 /*.navbarTopImg:hover {
     animation: rotateAndScale 4s both;
 } */
 
 .p-button {
-    background: #522f45;
+    background: #3c3d41;
     color: white;
+    border-radius: 4px;
 }
 
 .p-button:hover {
     background-color: #24111d;
-    ;
     color: #eb7fc5;
+    border-radius: 10px;
 }
 
 
@@ -371,5 +426,8 @@ label {
     border: 1px solid #d3dbe3;
 
     border-radius: 6px;
+}
+a{
+    text-decoration: none;
 }
 </style>
