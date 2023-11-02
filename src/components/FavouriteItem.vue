@@ -2,8 +2,10 @@
 import { defineProps } from 'vue';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
-// eslint-disable-next-line no-unused-vars
 
+import { useUser } from '../composable/useUser';
+
+const { deleteFavouriteItem } = useUser()
 
 defineProps({
     favContent: {
@@ -36,7 +38,7 @@ defineProps({
             </div>
         </template>
         <template #footer>
-            <Button></Button>
+            <Button @click="deleteFavouriteItem(favContent.id)">Удалить из избранного</Button>
         </template>
     </Card>
 </template>
@@ -72,5 +74,18 @@ defineProps({
 .car-title {
     text-align: center;
     word-break: break-all;
+}
+
+.p-button {
+    background: #3c3d41;
+    color: white;
+    border-radius: 4px;
+    margin-left: 5%;
+}
+
+.p-button:hover {
+    background-color: #24111d;
+    color: #eb7fc5;
+    border-radius: 10px;
 }
 </style>

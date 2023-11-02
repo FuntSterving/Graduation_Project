@@ -125,7 +125,6 @@ export const useContent = () => {
   const favContent = ref(null)
   const favContentList = ref([])
 
-
   const loading = ref({
     content: false,
     contentList: false,
@@ -194,9 +193,10 @@ export const useContent = () => {
       console.log(contentList.value)
       console.log(userToObject.value)
       userToObject.value.favourites.forEach((item) => {
-        favContentList.value.push(contentList.value.filter(f=>f.id == item)[0])
+        favContentList.value.push(contentList.value.filter((f) => f.id == item)[0])
       })
       console.log(favContentList.value)
+      console.log('drftcgvhbjnkml,')
       //loading.value.contentList = false
     } catch (error) {
       console.error(error)
@@ -223,6 +223,8 @@ export const useContent = () => {
       console.error(error)
     }
   }
+
+
 
   async function uploadImage(file) {
     const storage = getStorage()
@@ -271,7 +273,7 @@ export const useContent = () => {
     contentListRemake,
     favContent,
     favContentList,
-    favListRemake,
+    favListRemake,    
     getAllContent,
     getContentById,
     addContent,

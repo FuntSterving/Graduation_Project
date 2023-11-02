@@ -10,7 +10,6 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 const user = ref()
 const userList = ref([])
 
-
 const loading = ref({
   user: false,
   userList: false
@@ -77,7 +76,6 @@ export const useUser = () => {
   async function getAllUsers() {
     loading.value.userList = true
     try {
-      
       const querySnapshot = await getDocs(collection(db, 'users'))
       querySnapshot.forEach((doc) => {
         userList.value.push(doc.data())
@@ -101,15 +99,16 @@ export const useUser = () => {
 
   //обновить данные в базе данных
   async function updateUserInDatabase() {
-    console.log(user.value);  
+    console.log(user.value)
     if (user.value) {
       try {
         const userDocRef = doc(db, 'users', user.value.uid)
         console.log(userDocRef)
         const existingUserDoc = await getDoc(userDocRef)
         console.log(existingUserDoc)
-        const userData = existingUserDoc.data();
-        console.log(userData);
+        const userData = existingUserDoc.data()
+        console.log(userData)
+        console.log('сюда пришел')
         if (existingUserDoc) {
           const userData = existingUserDoc.data()
           const updatedData = {
@@ -118,7 +117,6 @@ export const useUser = () => {
           }
           console.log(updatedData)
           await setDoc(userDocRef, updatedData)
-         
         }
       } catch (error) {
         console.error(error)
@@ -153,10 +151,27 @@ export const useUser = () => {
   }
 
   async function addToFavorites(id) {
+    if (user.value.favourites.some((a) => a == id)) {
+      console.log('work')
+      return
+    }
     if (user.value) {
-      user.value.favourites.push(id);
+      user.value.favourites.push(id)
       await updateUserInDatabase()
       return
+    }
+    return
+  }
+
+  async function deleteFavouriteItem(id) {
+    try {
+      user.value.favourites = user.value.favourites.filter((f) => f != id)
+      console.log(user.value)
+      console.log('здесь нахуй')
+      await updateUserInDatabase()
+      return
+    } catch (error) {
+      console.error(error)
     }
     return
   }
@@ -178,6 +193,7 @@ export const useUser = () => {
     userList,
     addToLocalStorage,
     getUserFromLocalStorage,
+    deleteFavouriteItem,
     removeFromLocalStorage,
     addToFavorites
   }

@@ -93,7 +93,7 @@ const redirectToEvent = (link) => {
                     <p class="m-0">{{ event.info }}</p>
                 </template>
                 <template #footer>
-                    <Button icon="pi pi-megaphone" label="Посмотреть" @click="redirectToEvent(event.link)" style="margin-left: 35%" />
+                    <Button icon="pi pi-megaphone" label="Посмотреть" @click="redirectToEvent(event.link)" />
                 </template>
             </Card>
         </div>
@@ -101,6 +101,18 @@ const redirectToEvent = (link) => {
 </template>
 
 <style scoped>
+.p-button {
+    background: #3c3d41;
+    color: white;
+    border-radius: 4px;
+    margin-left: 35%;
+}
+
+.p-button:hover {
+    background-color: #24111d;
+    color: #eb7fc5;
+    border-radius: 10px;
+}
 
 .card-container {
     display: flex;
@@ -117,9 +129,10 @@ const redirectToEvent = (link) => {
     /* 3 карточки в ряд с отступами */
 }
 
-.p-card .p-card-title {
+:deep(.p-card-title){
     text-align: center !important;
 }
+
 
 .m-0 {
     margin: 0 !important;

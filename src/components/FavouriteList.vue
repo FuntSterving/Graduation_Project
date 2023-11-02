@@ -2,11 +2,13 @@
 // eslint-disable-next-line no-unused-vars
 import FavouriteItem from '@/components/FavouriteItem.vue'
 import { useContent } from '@/composable/useContent'
+import { onMounted } from 'vue'
 
+const { favListRemake, getAllContent } = useContent()
 
-const { favListRemake } = useContent()
-
-
+onMounted(async () => {
+  await getAllContent()
+})
 
 </script>
 
@@ -26,6 +28,7 @@ const { favListRemake } = useContent()
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  height: 100vh;
 }
 
 :deep(.p-card):hover {
