@@ -1,5 +1,6 @@
 <script setup>
 import { useContent } from '@/composable/useContent'
+import { useUser } from '@/composable/useUser'
 // eslint-disable-next-line no-unused-vars
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -17,6 +18,7 @@ const redirectToRestaurant = () => {
 
 // eslint-disable-next-line no-unused-vars, vue/no-dupe-keys
 const { content, getContentById, userToObject, addContent} = useContent()
+const { addToFavorites} = useUser()
 
 
 
@@ -53,7 +55,7 @@ onMounted(async () => {
 
                 <div class="card flex justify-content-center" style="border: none;">
                     <div class="button-rating-container">
-                        <p-button label="Добавить" icon="pi pi-heart" @click="addToFavorites" text />
+                        <p-button label="Добавить" icon="pi pi-heart" @click="addToFavorites(content.id)" text />
 
                         <p-button label="Закрыть" icon="pi pi-times" @click="redirectToRestaurant"></p-button>
                     </div>

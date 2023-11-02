@@ -1,12 +1,16 @@
 <script setup>
 import { defineProps } from 'vue';
 import Card from 'primevue/card';
+// import Button from 'primevue/button';
+// eslint-disable-next-line no-unused-vars
+
 
 defineProps({
   content: {
     type: Object,
     required: true,
   },
+
 })
 
 </script>
@@ -35,6 +39,7 @@ defineProps({
       </div>
     </template>
     <template #footer>
+      <!-- <Button v-if=""></Button> -->
     </template>
   </Card>
 </template>
@@ -71,6 +76,4 @@ defineProps({
   text-align: center;
   word-break: break-all;
 }
-
-
 </style>

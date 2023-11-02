@@ -1,10 +1,8 @@
 <script setup>
-
-
+import FavouriteList from '@/components/FavouriteList.vue';
 </script>
- <template>
-xsdcfvgbh
-  </template>
-  
-  
-  
+
+<template>
+    <FavouriteList />
+</template>
+<style scoped></style>

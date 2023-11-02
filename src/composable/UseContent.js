@@ -122,6 +122,9 @@ export const useContent = () => {
 
   const contentList = ref([])
   const content = ref(null)
+  const favContent = ref(null)
+  const favContentList = ref([])
+
 
   const loading = ref({
     content: false,
@@ -147,6 +150,24 @@ export const useContent = () => {
     return []
   })
 
+  const favListRemake = computed(() => {
+    if (favContentList.value) {
+      const _favListRemake = favContentList.value.map((favContent) => {
+        favContent.brand = `${favContent.brand} `
+        favContent.location = `${favContent.location}`
+        favContent.typeOfCuisine = `${favContent.typeOfCuisine}`
+        favContent.workingHours = `${favContent.workingHours}`
+        favContent.description = `${favContent.description}`
+        favContent.numberOfSeats = `${favContent.numberOfSeats}`
+        favContent.childrensMenu = `${favContent.childrensMenu}`
+        favContent.delivery = `${favContent.delivery}`
+        return favContent
+      })
+      return _favListRemake || []
+    }
+    return []
+  })
+
   const { userToObject } = useUser()
 
   async function addContent() {
@@ -168,9 +189,15 @@ export const useContent = () => {
     loading.value.contentList = true
     try {
       const querySnapshot = await getDocs(collection(db, 'contents'))
+      console.log(querySnapshot)
       contentList.value = querySnapshot.docs.map((doc) => doc.data())
-      // console.log(contentList.value)
-      loading.value.contentList = false
+      console.log(contentList.value)
+      console.log(userToObject.value)
+      userToObject.value.favourites.forEach((item) => {
+        favContentList.value.push(contentList.value.filter(f=>f.id == item)[0])
+      })
+      console.log(favContentList.value)
+      //loading.value.contentList = false
     } catch (error) {
       console.error(error)
     }
@@ -242,6 +269,9 @@ export const useContent = () => {
     content,
     loading,
     contentListRemake,
+    favContent,
+    favContentList,
+    favListRemake,
     getAllContent,
     getContentById,
     addContent,

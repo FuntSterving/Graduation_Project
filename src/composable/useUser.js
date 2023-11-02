@@ -3,12 +3,13 @@ import { collection, getDocs, addDoc, getDoc, doc, setDoc } from 'firebase/fires
 // eslint-disable-next-line no-unused-vars
 import { db, storage } from '@/firebase'
 // eslint-disable-next-line no-unused-vars
-import { getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { getStorage, uploadBytes, getDownloadURL, connectStorageEmulator } from 'firebase/storage'
 import { ref, computed } from 'vue'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 const user = ref()
 const userList = ref([])
+
 
 const loading = ref({
   user: false,
@@ -72,14 +73,11 @@ export const useUser = () => {
     }
   }
 
-
-  
-
-
   // получить всех юзеров
   async function getAllUsers() {
     loading.value.userList = true
     try {
+      
       const querySnapshot = await getDocs(collection(db, 'users'))
       querySnapshot.forEach((doc) => {
         userList.value.push(doc.data())
@@ -101,25 +99,32 @@ export const useUser = () => {
     user.value = userList.value.find((item) => item.uid === user.value?.uid)
   }
 
-  // обновить данные в базе данных
-//   async function updateUserInDatabase() {
-//     if (user.value) {
-//       try {
-//         const userDocRef = doc(db, 'users', user.value.uid)
-//         const existingUserDoc = await getDoc(userDocRef)
-//         if (existingUserDoc.exists()) {
-//           const userData = existingUserDoc.data()
-//           const updatedData = {
-//             ...userData,
-//             ...user.value
-//           }
-//           await setDoc(userDocRef, updatedData)
-//         }
-//       } catch (error) {
-//         console.error(error)
-//       }
-//     }
-//   }
+  //обновить данные в базе данных
+  async function updateUserInDatabase() {
+    console.log(user.value);  
+    if (user.value) {
+      try {
+        const userDocRef = doc(db, 'users', user.value.uid)
+        console.log(userDocRef)
+        const existingUserDoc = await getDoc(userDocRef)
+        console.log(existingUserDoc)
+        const userData = existingUserDoc.data();
+        console.log(userData);
+        if (existingUserDoc) {
+          const userData = existingUserDoc.data()
+          const updatedData = {
+            ...userData,
+            ...user.value
+          }
+          console.log(updatedData)
+          await setDoc(userDocRef, updatedData)
+         
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
 
   function addToLocalStorage() {
     if (user.value) {
@@ -147,13 +152,21 @@ export const useUser = () => {
     removeFromLocalStorage()
   }
 
+  async function addToFavorites(id) {
+    if (user.value) {
+      user.value.favourites.push(id);
+      await updateUserInDatabase()
+      return
+    }
+    return
+  }
   // это надо не всем
   // для постоянной связи сервиса с базой данных
-//   watch(user.value, async (newValue) => {
-//     if (newValue) {
-//       await updateUserInDatabase()
-//     }
-//   })
+  //   watch(user.value, async (newValue) => {
+  //     if (newValue) {
+  //       await updateUserInDatabase()
+  //     }
+  //   })
 
   return {
     user,
@@ -166,6 +179,6 @@ export const useUser = () => {
     addToLocalStorage,
     getUserFromLocalStorage,
     removeFromLocalStorage,
-    
+    addToFavorites
   }
 }
