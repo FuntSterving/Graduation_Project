@@ -4,12 +4,8 @@ import { useUser } from '@/composable/useUser'
 import { ref } from "vue";
 import Menubar from 'primevue/menubar';
 
-import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
 
-// eslint-disable-next-line no-unused-vars
-const route = useRoute();
-// eslint-disable-next-line no-unused-vars
 const router = useRouter();
 
 import Dialog from 'primevue/dialog';
@@ -23,11 +19,8 @@ import InputText from "primevue/inputtext";
 
 const { user, googleRegister, googleLogout, } = useUser()
 
-// import { ref, computed } from "vue";
 
-
-// eslint-disable-next-line no-unused-vars, no-undef
-const { newContent, addContent, loading, clear, uploadImage } = useContent()
+const { newContent, addContent, clear, uploadImage } = useContent()
 
 async function createContetn() {
     await addContent()
