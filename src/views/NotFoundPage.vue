@@ -8,26 +8,25 @@
 
 <style scoped>
 .container {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     margin-top: 30px;
     padding: 20px;
-    background-color: #774364;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 img {
     max-width: 100%;
     height: 50%;
-    margin: 20px 0;
+   
     margin: 0px auto;
 }
 
 h1 {
-    color: #9ab9df;
+    color: #fff;
     text-align: center;
 }
 </style>

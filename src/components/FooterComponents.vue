@@ -1,71 +1,109 @@
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const redirectToContacts = () => {
+    router.push('/contacts');
+};
+const redirectToAboutUs = () => {
+    router.push('/aboutus');
+};
+const redirectToHome = () => {
+    router.push('/home');
+};
+const redirectToRestaurant = () => {
+    router.push('/restaurants');
+};
+const redirectToEvents = () => {
+    router.push('/events');
+};
+const redirectToFavorites = () => {
+    router.push('/favorites');
+};
+
+</script>
 <template>
     <div class="">
-        <section style="height:80px;"></section>
+
 
         <!----------- Footer ------------>
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section" style=" width: 25%;">
                     <div class="footer-brand">
-                        <h2>Logo</h2>
-                        <p>Suspendisse hendrerit tellus laoreet luctus pharetra. Aliquam porttitor vitae orci nec ultricies.
-                            Curabitur vehicula, libero eget faucibus faucibus, purus erat eleifend enim, porta pellentesque
-                            ex mi ut sem.</p>
-                        <p>&copy; 2014 BS3 UI Kit, All rights reserved</p>
+                        <h2>Гелерея ресторанов</h2>
+                        <p>Вкус мира в каждом блюде, искусство в каждом уголке</p>
+
                     </div>
                 </div>
                 <div class="footer-section" style=" width: 35%;">
                     <div class="footer-nav">
-                        <h4>Menu —</h4>
+                        <h4>Меню —</h4>
                         <ul class="pages">
-                            <li><a href="#">Travel</a></li>
-                            <li><a href="#">Nature</a></li>
-                            <li><a href="#">Explores</a></li>
-                            <li><a href="#">Science</a></li>
-                            <li><a href="#">Advice</a></li>
+                            <li @click="redirectToHome"> <a href="#">Главная</a></li>
+                            <li @click="redirectToRestaurant"> <a href="#">Галерея</a></li>
+                            <li @click="redirectToEvents"> <a href="#">События</a></li>
+                            <li @click="redirectToFavorites"> <a href="#">Избаранное</a></li>
+
                         </ul>
                         <ul class="list">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contacts</a></li>
-                            <li><a href="#">Terms & Condition</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li @click="redirectToAboutUs"><a href="#">About Us</a></li>
+                            <li @click="redirectToContacts"><a href="#">Contacts</a></li>
+
                         </ul>
                     </div>
                 </div>
                 <div class="footer-section">
                     <div class="footer-social">
-                        <h4>Follow Us</h4>
+                        <h4>Подписывайтесь —</h4>
                         <ul>
-                            <li><a href="#">Facebook</a></li>
-                            <li><a href="#">Twitter</a></li>
-                            <li><a href="#">Instagram</a></li>
-                            <li><a href="#">RSS</a></li>
+                            <li> <a href="https://www.facebook.com/example" target="_blank"> Facebook</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/example" target="_blank"> Twitter</a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/example" target="_blank"> Google</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <div class="footer-section">
                     <div class="footer-ns">
-                        <h4>Newsletter</h4>
+                        <h4>Новостная рассылка —</h4>
                         <p>A rover wearing a fuzzy suit doesn’t alarm the real penguins</p>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <button class="btn btn-default" type="button"><i class="pi pi-envelope"></i></button>
+                            <input type="text" class="form-control">
+                            <button class="btn btn-default" type="button"><i class="pi pi-envelope"
+                                    style="color: #fff;"></i></button>
 
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-        <div style="background-color: #522f45; width: 100%; height: 50px; border-top: solid 1px rgba(255, 255, 255, 0.10);">
-
+        <div style="background-color: #522f45; width: 100%; height: auto; border-top: solid 1px rgba(255, 255, 255, 0.10);">
             <section style="text-align:center; margin:0px auto; padding: 10px;">
-                <p style="margin: 0; color: white;">Designed by <a href="http://enfoplus.net" style="text-decoration: none;">Prince J. Sargbah</a></p>
+                <p style="margin: 0; color: white;">Designed by <a href="https://github.com/FuntSterving"
+                        class="FuntSterving" target="_blank">FuntSterving</a></p>
+                <p style="margin: 0; color: white;">&copy; All rights reserved</p>
             </section>
         </div>
     </div>
 </template>
   
 <style scoped>
+.FuntSterving {
+    text-decoration: none;
+    color: #fff;
+}
+
+.FuntSterving:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .footer {
     background-color: #3c3d41;
     color: rgba(255, 255, 255, 1.00);
@@ -101,6 +139,7 @@
     display: flex;
     justify-content: space-between;
 }
+
 
 .footer-nav h4,
 .footer-social h4,

@@ -21,6 +21,21 @@ const router = createRouter({
       component: () => import('../views/ContactsPage.vue')
     },
     {
+      path: '/events',
+      name: 'events',
+      component: () => import('../views/EventsPage.vue')
+    },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: () => import('../views/FavoritesPage.vue')
+    },
+    {
+      path: '/aboutus',
+      name: 'aboutus',
+      component: () => import('../views/AboutUsPage.vue')
+    },
+    {
       path: '/restaurant/:id',
       name: 'restaurant',
       component: RestaurantIdPage

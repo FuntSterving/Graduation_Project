@@ -14,11 +14,20 @@ import Badge from 'primevue/badge';
         <div class="blog-div-left">
             <h5 style="margin: 5%;"> <i class="pi pi-book"></i> Читай интересное! </h5>
             <ul class="ulLeft">
-                <li><a href="#">Travel</a></li>
-                <li><a href="#">Nature</a></li>
-                <li><a href="#">Explores</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Advice</a></li>
+                <li><a href="https://xn--80adjb3bemchk.xn--p1ai/articles/pravila-etiketa-v-restorane" target="_blank"> <i
+                            class="pi pi-angle-right" style="color: #fff"></i> Правила этикета в ресторане</a></li>
+                <li><a href="https://www.restoclub.ru/review/industry/wheretodrink-2023-itogi" target="_blank"><i
+                            class="pi pi-angle-right" style="color: #fff"></i> WhereToDrink
+                        2023: итоги</a></li>
+                <li><a href="https://www.restoclub.ru/review/foodtrip/luchshie-kafe-v-prage" target="_blank"> <i
+                            class="pi pi-angle-right" style="color: #fff"> </i>Лучшие кафе в
+                        Праге</a></li>
+                <li><a href="https://www.restoclub.ru/msk/place/peshi-1/offer/novogodnjaja-noch" target="_blank"><i
+                            class="pi pi-angle-right" style="color: #fff"></i> Новогодняя
+                        ночь в ресторане «Peshi»</a></li>
+                <li><a href="https://ufaved.info/articles/azbuka/istoriya_odnogo_blyuda_ratatuy/" target="_blank"> <i
+                            class="pi pi-angle-right" style="color: #fff"></i> История
+                        одного блюда: рататуй</a></li>
             </ul>
         </div>
 
@@ -27,11 +36,11 @@ import Badge from 'primevue/badge';
             <CCarousel controls>
                 <!-- style="background-color: #f1f5f9;" -->
                 <CCarouselItem class="CarouselItemContainer">
-                    <Badge class="flex flex-wrap justify-content-center align-items-start gap-2" size="xlarge"
+                    <Badge class="flex flex-wrap justify-content-center align-items-start gap-2 " size="xlarge"
                         severity="danger"
                         style="background: radial-gradient(circle, rgba(82,47,69,1) 0%, rgba(60,61,65,1) 100%); color: #fff;">
                         <a href="https://buonomoscow.ru/" target="_blank"
-                            style="text-decoration: none; color: #fff;  font-size: x-large; ">Посетить</a>
+                            style="text-decoration: none; color: #fff;  font-size: x-large; padding-top: 0.5em; ">Посетить</a>
                     </Badge>
 
                     <img class="d-block w-100"
@@ -46,11 +55,11 @@ import Badge from 'primevue/badge';
 
 
                 <CCarouselItem class="CarouselItemContainer">
-                    <Badge class="flex flex-wrap justify-content-center align-items-start gap-2" size="xlarge"
+                    <Badge class="flex flex-wrap justify-content-center align-items-start gap-2 " size="xlarge"
                         severity="danger"
                         style="background: radial-gradient(circle, rgba(82,47,69,1) 0%, rgba(60,61,65,1) 100%); color: #fff;">
                         <a href="https://veter.restaurant/" target="_blank"
-                            style="text-decoration: none; color: #fff; font-size: x-large;">Посетить</a>
+                            style="text-decoration: none; color: #fff; font-size: x-large; padding-top: 0.5em;">Посетить</a>
                     </Badge>
 
                     <img class="d-block w-100"
@@ -65,11 +74,11 @@ import Badge from 'primevue/badge';
                 </CCarouselItem>
 
                 <CCarouselItem class="CarouselItemContainer">
-                    <Badge class="flex flex-wrap justify-content-center align-items-start gap-2" size="xlarge"
+                    <Badge class="flex flex-wrap justify-content-center align-items-start gap-2 " size="xlarge"
                         severity="danger"
                         style="background: radial-gradient(circle, rgba(82,47,69,1) 0%, rgba(60,61,65,1) 100%); color: #fff;">
                         <a href="https://sempre.moscow/" target="_blank"
-                            style="text-decoration: none; color: #fff; font-size: x-large;">Посетить</a>
+                            style="text-decoration: none; color: #fff; font-size: x-large; padding-top: 0.5em;">Посетить</a>
                     </Badge>
 
                     <img class="d-block w-100"
@@ -135,19 +144,32 @@ import Badge from 'primevue/badge';
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    height: 100vh;
 }
 
 .blog-div-left,
 .blog-div-right {
     width: 25%;
-    /* Задайте нужную ширину для ваших блоков блога */
-    /* Дополнительные стили по вашему усмотрению */
+    height: 100%;
+}
+
+.blog-div-left h5 {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.blog-div-right h5 {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.blog-div-left {
+    line-height: 3;
 }
 
 .CarouselContainer {
     width: 50%;
-    /* Задайте нужную ширину для вашей карусели */
-    /* Дополнительные стили по вашему усмотрению */
+    height: 100%;
 }
 
 
@@ -176,6 +198,7 @@ import Badge from 'primevue/badge';
 
 .CarouselItemContainer {
     margin-bottom: 20px;
+
 }
 
 .carousel {
@@ -191,6 +214,7 @@ import Badge from 'primevue/badge';
     max-width: 100%;
     height: auto;
     width: 50%;
+    border-radius: 5px;
 }
 
 .carousel-caption {
@@ -211,23 +235,26 @@ import Badge from 'primevue/badge';
 .blog-div-left ul.ulLeft {
     list-style: none;
     padding: 0px;
-    margin: 5%;
+    margin: 3%;
     text-align: start;
+    color: #fff;
 }
 
 li a:hover {
-    background-color: #24111d;
+    text-decoration: underline;
     border-radius: 5px;
     margin: 9px;
     padding: 5px;
     color: #eb7fc5;
 }
 
+
+
 iframe:hover {
     background-color: #24111d;
     border-radius: 5px;
     margin: 9px;
- 
+
 }
 
 .blog-div-right ul.ulRight {
@@ -235,14 +262,20 @@ iframe:hover {
     padding: 0px;
     margin: 5%;
     text-align: end;
+    color: #fff;
 }
 
-h5{
+h5 {
     margin-top: 10px;
+    color: #fff;
 }
 
 a {
     text-decoration: none;
-    color: black;
+    color: #fff;
+}
+
+p {
+    color: #fff;
 }
 </style>

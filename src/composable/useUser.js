@@ -72,6 +72,10 @@ export const useUser = () => {
     }
   }
 
+
+  
+
+
   // получить всех юзеров
   async function getAllUsers() {
     loading.value.userList = true
@@ -161,6 +165,7 @@ export const useUser = () => {
     userList,
     addToLocalStorage,
     getUserFromLocalStorage,
-    removeFromLocalStorage
+    removeFromLocalStorage,
+    
   }
 }

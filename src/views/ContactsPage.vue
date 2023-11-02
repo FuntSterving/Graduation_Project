@@ -15,19 +15,7 @@ import 'primeicons/primeicons.css';
         <h3>Электронная почта</h3>
         <p><a href="mailto:info@example.com">info@example.com</a></p>
 
-        <h3>Форма обратной связи</h3>
-        <form action="process_form.php" method="post">
-            <label for="name">Имя:</label>
-            <input type="text" id="name" name="name" required><br>
 
-            <label for="email">Электронная почта:</label>
-            <input type="email" id="email" name="email" required><br>
-
-            <label for="message">Сообщение:</label><br>
-            <textarea id="message" name="message" rows="4" required></textarea><br>
-
-            <input type="submit" value="Отправить">
-        </form>
 
         <h3>Карта</h3>
         <section class="map">
@@ -56,10 +44,7 @@ import 'primeicons/primeicons.css';
 <style scoped>
 .container {
     font-family: Arial, sans-serif;
-    background-color: #e9edf3;
     border-radius: 3px;
-    border: 1px solid #dee2e6;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -79,23 +64,23 @@ import 'primeicons/primeicons.css';
 }
 
 h1 {
-    background-color: #708da9;
+   
     color: #fff;
     padding: 20px;
     text-align: center;
 }
 
 h3 {
-    color: #333;
+    color: #fff;
     margin-top: 20px;
 }
 
 p {
-    color: #666;
+    color: #fff;
 }
 
 a {
-    color: #007bff;
+    color: #fff;
     text-decoration: none;
     margin: 10px;
     cursor: pointer;
@@ -103,42 +88,5 @@ a {
 
 a:hover {
     text-decoration: underline;
-}
-
-form {
-    margin-top: 20px;
-    max-width: 400px;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    align-items: center;
-    display: inline-block;
-}
-
-label {
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3;
 }
 </style>

@@ -7,6 +7,8 @@ import router from './router'
 import PrimeVue from 'primevue/config'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
+import 'primeflex/primeflex.css'
+
 import 'primevue/resources/themes/bootstrap4-light-purple/theme.css'
 import 'bootstrap/dist/css/bootstrap.css';
 

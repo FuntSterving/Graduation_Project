@@ -51,7 +51,9 @@ const toggleVisible = () => {
 }
 
 const typeOfCuisine = [
+    { cuisine: 'Европейская' },
     { cuisine: 'Итальянская' },
+    { cuisine: 'Грузинская' },
     { cuisine: 'Французская кухня' },
     { cuisine: 'Испанская кухня' },
     { cuisine: 'Мексиканская кухня' },
@@ -96,14 +98,9 @@ const items = ref([
     },
 
     {
-        label: 'Contacts',
-        icon: 'pi pi-megaphone',
-        route: '/contacts',
-    },
-    {
         label: 'Избранное',
         icon: 'pi pi-heart',
-        route: '/cart',
+        route: '/favorites',
     }
 ]);
 

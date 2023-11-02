@@ -28,7 +28,7 @@ defineProps({
 
     <template #content>
       <div class="car-details">
-        <p>Расположение: {{ content.location }}</p>
+        <p> {{ content.location }}</p>
         <!-- <p>Тип кухни: {{ content.typeOfCuisine }}</p>
         <p>Время работы: {{ content.workingHours }}</p>
         <p>Количество посадочных мест: {{ content.numberOfSeats }}</p> -->
