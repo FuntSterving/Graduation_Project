@@ -13,14 +13,14 @@ import Button from 'primevue/button';
 import Dropdown from 'primevue/dropdown';
 import RadioButton from 'primevue/radiobutton';
 import Slider from 'primevue/slider';
-import { useContent } from '@/composable/useContent';
+import { UseContent } from '@/composable/useContent';
 import FileUpload from 'primevue/fileupload';
 import InputText from "primevue/inputtext";
 
 const { user, googleRegister, googleLogout, } = useUser()
 
 
-const { newContent, addContent, clear, uploadImage } = useContent()
+const { newContent, addContent, clear, uploadImage } = UseContent()
 
 async function createContetn() {
     await addContent()
