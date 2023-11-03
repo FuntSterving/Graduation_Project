@@ -15,6 +15,7 @@ const redirectToHome = () => {
 const redirectToRestaurant = () => {
     router.push('/restaurants');
 };
+
 const redirectToEvents = () => {
     router.push('/events');
 };
